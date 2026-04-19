@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Nv.13 | Metal, Skate & Dados</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Condensed:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+            background: #8B0000;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            z-index: -1;
+        }
+
+        header {
+            background: #000;
+            color: #fff;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 5px solid #fff;
+        }
+
+        header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 0 #8B0000;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-top: 0.5rem;
+        }
+
+        nav {
+            background: #111;
+            padding: 1rem;
+            border-bottom: 3px solid #8B0000;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+        }
+
+        nav a:hover {
+            color: #FF0000;
+            text-shadow: 0 0 8px #FF0000;
+        }
+
+       .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 2rem;
+        }
+
+       .post {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid #fff;
+            border-left: 8px solid #FF0000;
+        }
+
+       .post h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.2rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+       .post-meta {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px dashed #444;
+            padding-bottom: 0.5rem;
+        }
+
+       .post-meta span {
+            color: #FF0000;
+            font-weight: 700;
+        }
+
+       .post img {
+            width: 100%;
+            height: auto;
+            border: 3px solid #000;
+            margin: 1rem 0;
+            filter: grayscale(40%) contrast(1.1);
+        }
+
+       .leia-mais {
+            display: inline-block;
+            margin-top: 1rem;
+            background: #FF0000;
+            color: #000;
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            border: 2px solid #000;
+            cursor: pointer;
+        }
+
+       .leia-mais:hover {
+            background: #000;
+            color: #FF0000;
+            border-color: #FF0000;
+        }
+
+        aside {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1.5rem;
+            border: 2px solid #fff;
+            height: fit-content;
+        }
+
+       .widget {
+            margin-bottom: 2rem;
+        }
+
+       .widget h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid #FF0000;
+            padding-bottom: 0.5rem;
+        }
+
+       .widget ul {
+            list-style: none;
+        }
+
+       .widget li {
+            margin-bottom: 0.7rem;
+            padding-left: 1rem;
+            border-left: 2px solid #444;
+        }
+
+       .widget a {
+            color: #ccc;
+            text-decoration: none;
+        }
+
+       .widget a:hover {
+            color: #FF0000;
+        }
+
+       .tag {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            padding: 0.2rem 0.6rem;
+            margin: 0.2rem;
+            font-size: 0.8rem;
+            border: 1px solid #FF0000;
+        }
+
+       .lista-bandas {
+            columns: 2;
+            margin: 1rem 0;
+       }
+
+       .lista-bandas li {
+            margin-bottom: 0.3rem;
+       }
+
+       .destaque {
+            background: #111;
+            border: 1px solid #FF0000;
+            padding: 1rem;
+            margin: 1rem 0;
+       }
+
+       .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.95);
+            align-items: center;
+            justify-content: center;
+        }
+
+       .modal-conteudo {
+            max-width: 90%;
+            max-height: 90%;
+            border: 5px solid #FF0000;
+            position: relative;
+        }
+
+       .modal-conteudo img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: none;
+            margin: 0;
+            border: none;
+        }
+
+       .fechar {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #FF0000;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Bebas Neue', sans-serif;
+        }
+
+       .fechar:hover {
+            color: #fff;
+        }
+
+       .legenda-channel {
+            text-align: center;
+            background: #000;
+            color: #FF0000;
+            padding: 1rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            border-top: 3px solid #FF0000;
+       }
+
+        footer {
+            background: #000;
+            color: #777;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            border-top: 5px solid #FF0000;
+        }
+
+        @media (max-width: 768px) {
+           .container {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+           .lista-bandas {
+                columns: 1;
+           }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>PLAYER NV.13</h1>
+        <p>Metal na caixa de som, Channel no colo, dado de 20 na mão, skate no pé</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#bandas">BANDAS</a></li>
+            <li><a href="#rpg">RPG</a></li>
+            <li><a href="#skate">SKATE</a></li>
+            <li><a href="#filmes">FILMES</a></li>
+            <li><a href="#animais">ANIMAIS</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <main>
+            <article class="post" id="rpg">
+                <h2>FIM DE CAMPANHA: DERROTAMOS O BOSS E NINGUÉM MORREU</h2>
+                <p class="post-meta">Postado em <span>19/04/2026</span> | Categoria: <span>RPG DE MESA</span></p>
+                <img src="https://placehold.co/800x400/000000/00FF00?text=NAT+20+FINAL" alt="Dado de 20 com resultado 20">
+                <p>Quinta-feira agora acabou. 6 meses de campanha, 23 sessões, e tivemos um final feliz. Pela primeira vez na história.</p>
+                
+                <div class="destaque">
+                    <p><strong>Resumo da última sessão:</strong> Boss final tinha 200 de HP. Eu tava com 3 de vida. Rogue com 1. Mago sem magia. Cleric desmaiado. Só o paladino de pé. Ele precisava de 19 pra acertar. O cara respira fundo, joga o dado... <strong>NAT 20</strong>. Dano dobrado + smite + golpe crítico. 87 de dano. Boss evaporou.</p>
+                </div>
+
+                <p>Ninguém morreu. Zeramos a dungeon, salvamos a cidade, e meu bardo finalmente ficou com a taverneira NPC. O mestre até chorou. Disse que nunca viu um grupo tão caótico dar certo no final. Channel latiu pra minha tela a sessão inteira. Acho que ela deu sorte.</p>
+            </article>
+
+            <article class="post" id="filmes">
+                <h2>MEU TOP 5 FILMES</h2>
+                <p class="post-meta">Postado em <span>18/04/2026</span> | Categoria: <span>FILMES</span></p>
+                <img src="https://placehold.co/800x400/000000/FF0000?text=TOP+5+FILMES" alt="Elenco de filme">
+                <p>Esses são os filmes que eu posso assistir mil vezes que não enjoa. Tem terror, ficção, dinossauro e surto. É a party perfeita.</p>
+                
+                <div class="destaque">
+                    <p><strong>1. Interestelar</strong> - Choro toda vez. Trilha sonora do Hans Zimmer é critico de dano emocional.<br>
+                    <strong>2. It: A Coisa 1</strong> - Pennywise seria um boss foda de RPG. Teste de resistência contra medo com desvantagem.<br>
+                    <strong>3. Jurassic Park</strong> - Dino é meu tipo de encounter aleatório favorito. Queria um t-rex de pet.<br>
+                    <strong>4. It: A Coisa 2</strong> - Continuação com os adultos traumatizados. Representa meu grupo depois de campanha.<br>
+                    <strong>5. Noites Brutais</strong> - Terror psicológico + casa esquisita. Channel latiria a tela inteira.</p>
+                </div>
+
+                <p>Se você discordar da lista, rola um d20 de persuasão pra ver se me convence. Spoiler: precisa de NAT 20.</p>
+            </article>
+
+            <article class="post" id="animais">
+                <h2>CHANNEL: MINHA CACHORRINHA DE 6 ANOS RAIVOSA</h2>
+                <p class="post-meta">Postado em <span>17/04/2026</span> | Categoria: <span>ANIMAIS</span></p>
+                <img src="https://placehold.co/800x400/8B0000/FFFFFF?text=CHANNEL+6+ANOS" alt="Cachorrinha">
+                <p>Essa é a Channel. Tem 6 anos, é pequena, fofa, e um pouco raivosa. Principalmente com carteiros, aspirador de pó e gente que chega perto de mim.</p>
+                
+                <div class="destaque">
+                    <p><strong>Ficha da Channel:</strong> Raça: Vira-lata premium. Classe: Bárbara/Gatekeeper. Alinhamento: Caótico e brava. Habilidades passivas: Rosnar pra visitas + Proteger o player + Julgar minhas builds de RPG. Fraqueza: Petisco e sachê.</p>
+                </div>
+
+                <p>Ela odeia quando eu coloco música alta, mas se for Slipknot ela só late 50% do tempo. Se eu tô triste, ela morde meu pé pra eu lembrar que a vida é dor. Se eu tiro NAT 20, ela late como se tivesse entendido. Melhor companheira de party que eu já tive. Mesmo sendo um pouco brava com os outros, comigo ela é anjo. Quer dizer, anjo que morde.</p>
+                <a href="#" class="leia-mais" onclick="document.getElementById('modalChannel').style.display='flex'; return false;">VER FOTOS DA CHANNEL</a>
+            </article>
+
+            <article class="post" id="skate">
+                <h2>MINHA RELAÇÃO COM SKATE: É COMPLICADO</h2>
+                <p class="post-meta">Postado em <span>16/04/2026</span> | Categoria: <span>SKATE</span></p>
+                <img src="https://placehold.co/800x400/000000/FFFFFF?text=SK8+%3D+DOR" alt="Skate quebrado">
+                <p>Realidade: eu não sei andar de skate 😭</p>
+                <p>Tento desde os 11 anos. Consigo ficar em pé por uns 3 segundos antes de parecer que tô dançando break no chão. A vibe é linda, a estética é perfeita, MCR tocando no fundo... mas minhas pernas não colaboram.</p>
+                
+                <div class="destaque">
+                    <p><strong>Arquivo confidencial:</strong> Uma vez eu me machuquei feio no skate. Tentei descer uma rampa que, na minha cabeça, era pequena. Na vida real era o Everest. Resultado: joelho ralado, cotovelo aberto, ego destruído. Channel veio latir pro skate como se fosse culpa dele. Traumatizei.</p>
+                </div>
+
+                <p>Mas eu ainda amo skate. Tenho 3 shapes pendurados na parede de decoração. Uso camiseta da Thrasher. Sei todos os nomes das manobras. Só não sei fazer nenhuma. E tá tudo bem. Meu talento é rolar dado, não rodinha.</p>
+                <a href="#" class="leia-mais" onclick="alert('esperava mesmo que eu ia mostrar?'); return false;">VER FOTOS DOS MACHUCADOS</a>
+            </article>
+
+            <article class="post">
+                <h2>PLAYLIST: SKATE DE MADRUGADA + EMO 2000</h2>
+                <p class="post-meta">Postado em <span>15/04/2026</span> | Categoria: <span>METAL/EMO</span></p>
+                <img src="https://placehold.co/800x400/000000/FFFFFF?text=SK8+%2B+MCR" alt="Skate e fones de ouvido">
+                <p>Top 7 músicas pra tentar andar de skate quando todo mundo já dormiu: 1. My Chemical Romance - Helena, 2. Slipknot - Duality, 3. Bring Me The Horizon - Can You Feel My Heart, 4. System of a Down - Toxicity, 5. Paramore - Misery Business, 6. Black Sabbath - Paranoid, 7. Linkin Park - Numb. Se os vizinhos reclamarem, aumenta o volume. Se cair, pelo menos cai no estilo. É a lei do skate.</p>
+                <a href="https://music.youtube.com/playlist?list=PLSZjfYdaH5I2qLnaAIiqnhbXbZsTQ3eOQ&si=60rXjlgpCvm86k19" target="_blank" class="leia-mais">VER PLAYLIST</a>
+            </article>
+
+            <article class="post" id="bandas">
+                <h2>MEU GOSTO MUSICAL: DO EMO ATÉ O DEATHCORE</h2>
+                <p class="post-meta">Postado em <span>14/04/2026</span> | Categoria: <span>BANDAS</span></p>
+                <img src="https://placehold.co/800x400/000000/FF0000?text=EMO+TO+DEATHCORE" alt="Colagem de bandas">
+                <p>Eu curto emo até o deathcore. Se tem distorção, breakdown ou letra que dá pra chorar no quarto às 3am, eu tô ouvindo. Meu alcance vai do choro ao ódio puro.</p>
+                
+                <p><strong>Bandas emo que não largo:</strong></p>
+                <ul class="lista-bandas">
+                    <li>My Chemical Romance</li>
+                    <li>Paramore</li>
+                    <li>Pierce The Veil</li>
+                    <li>Sleeping With Sirens</li>
+                    <li>The Used</li>
+                    <li>Taking Back Sunday</li>
+                    <li>Hawthorne Heights</li>
+                    <li>Escape The Fate</li>
+                </ul>
+
+                <p><strong>Bandas de nu metal que moldaram meu caráter:</strong></p>
+                <ul class="lista-bandas">
+                    <li>Slipknot</li>
+                    <li>Linkin Park</li>
+                    <li>Korn</li>
+                    <li>System of a Down</li>
+                    <li>Deftones</li>
+                    <li>Papa Roach</li>
+                    <li>Limp Bizkit</li>
+                    <li>Mudvayne</li>
+                </ul>
+
+                <p>E quando quero quebrar tudo: Bring Me The Horizon, Suicide Silence, Whitechapel. É isso. Volume no máximo, Channel latindo pra caixa de som.</p>
+                <a href="https://music.youtube.com/playlist?list=PLSZjfYdaH5I2qLnaAIiqnhbXbZsTQ3eOQ&si=60rXjlgpCvm86k19" target="_blank" class="leia-mais">VER MINHAS PLAYLISTS</a>
+            </article>
+        </main>
+
+        <aside>
+            <div class="widget">
+                <h3>FICHA DO PLAYER</h3>
+                <p><strong>Nome:</strong> [REDACTED]<br>
+                <strong>Idade:</strong> 13<br>
+                <strong>Classe:</strong> Bardo Sem Skate<br>
+                <strong>Alinhamento:</strong> Caótico Neutro<br>
+                <strong>Campanha:</strong> FINALIZADA 17/04<br>
+                <strong>Status Skatista:</strong> Aposentado 😭<br>
+                <strong>Companheira:</strong> Channel, 6 anos, raivosa<br>
+                <strong>Próxima sessão:</strong> ???</p>
+            </div>
+
+            <div class="widget">
+                <h3>CATEGORIAS</h3>
+                <ul>
+                    <li><a href="#rpg">Crônicas de RPG</a></li>
+                    <li><a href="#bandas">Bandas & Playlists</a></li>
+                    <li><a href="#skate">Tombos no Skate</a></li>
+                    <li><a href="#filmes">Filmes & Séries</a></li>
+                    <li><a href="#animais">Channel Sendo Channel</a></li>
+                    <li><a href="#">Textos 3 da Manhã</a></li>
+                </ul>
+            </div>
+
+            <div class="widget">
+                <h3>TAGS</h3>
+                <span class="tag">#finalfeliz</span>
+                <span class="tag">#nat20</span>
+                <span class="tag">#Channel</span>
+                <span class="tag">#cachorraraivosa</span>
+                <span class="tag">#naoseiandar</span>
+                <span class="tag">#skatefail</span>
+                <span class="tag">#emo</span>
+                <span class="tag">#numetal</span>
+                <span class="tag">#deathcore</span>
+                <span class="tag">#MCR</span>
+                <span class="tag">#filmes</span>
+                <span class="tag">#rpg</span>
+                <span class="tag">#terror</span>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Modal da Channel -->
+    <div id="modalChannel" class="modal" onclick="this.style.display='none'">
+        <div class="modal-conteudo" onclick="event.stopPropagation()">
+            <span class="fechar" onclick="document.getElementById('modalChannel').style.display='none'">&times;</span>
+            <img src="channel.jpg" alt="Channel, a cachorrinha raivosa de 6 anos">
+            <div class="legenda-channel">CHANNEL - NÍVEL 6 - CLASSE: BÁRBARA RAIVOSA</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Player Nv.13 | Campanha finalizada. Channel aprovou.</p>
+    </footer>
+</body>
+</html>
